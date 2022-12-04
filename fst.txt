@@ -1,0 +1,99 @@
+id: 18
+	is final: no
+	transitions:
+		a: 9
+		d: 11
+		f: 14
+		j: 17
+	outputs:
+		a: 3
+		d: 31
+		f: 2
+		j: 3
+
+id: 9
+	is final: no
+	transitions:
+		p: 7
+		u: 8
+	outputs:
+		p: 0
+		u: 1
+
+id: 7
+	is final: no
+	transitions:
+		r: 6
+	outputs:
+
+id: 6
+	is final: yes
+	final outputs:
+		
+	transitions:
+	outputs:
+
+id: 8
+	is final: no
+	transitions:
+		g: 6
+	outputs:
+
+id: 11
+	is final: no
+	transitions:
+		e: 10
+	outputs:
+
+id: 10
+	is final: no
+	transitions:
+		c: 6
+	outputs:
+
+id: 14
+	is final: no
+	transitions:
+		e: 13
+	outputs:
+		e: 
+
+id: 13
+	is final: no
+	transitions:
+		b: 12
+	outputs:
+		b: 
+
+id: 12
+	is final: yes
+	final outputs:
+		8
+		9
+	transitions:
+	outputs:
+
+id: 17
+	is final: no
+	transitions:
+		a: 15
+		u: 16
+	outputs:
+		a: 1
+		u: 
+
+id: 15
+	is final: no
+	transitions:
+		n: 6
+	outputs:
+
+id: 16
+	is final: no
+	transitions:
+		l: 6
+		n: 6
+	outputs:
+		l: 1
+		n: 0
+

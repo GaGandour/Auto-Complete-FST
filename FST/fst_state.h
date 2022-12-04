@@ -8,6 +8,7 @@ using namespace std;
 class State {
 private:
     int id;
+    int finalID;
     bool isFinalVar;
     set<string> finalOutputs;
     unordered_map<char, State *> transitions;
@@ -83,12 +84,38 @@ public:
         return true;
     }
 
+    void renameFSTFinalIDs () {
+        int newId = 0;
+        set<int> renamedIds = set<int>();
+        renameDFS(renamedIds, newId);
+    }
+
+    void renameDFS (set<int> &renamedIds, int &newId) {
+        if (renamedIds.count(id) > 0) return;
+        finalID = newId++;
+        renamedIds.insert(id);
+        for (auto &t : transitions) {
+            t.second->renameDFS(renamedIds, newId);
+        }
+    }
+
     void print(string file) {
         set<int> printedIds = set<int>();
         ofstream outputFile;
         outputFile.open(file);
+        outputFile << "[\n";
         dfs(printedIds, outputFile);
+        outputFile << "]\n";
         outputFile.close();
+    }
+
+    void dfs(set<int> &printedIds, ostream &outputFile) {
+        if (printedIds.count(id) > 0) return;
+        printedIds.insert(id);
+        outputFile << constructJSON();
+        for (auto &t : transitions) {
+            t.second->dfs(printedIds, outputFile);
+        }
     }
 
     string constructDescription() {
@@ -133,15 +160,33 @@ public:
         return res;
     }
 
-    
-    void dfs(set<int> &printedIds, ostream &outputFile) {
-        if (printedIds.count(id) > 0) return;
-        printedIds.insert(id);
-        outputFile << constructDescription();
-        // writeDescription(outputFile);
-        for (auto &t : transitions) {
-            t.second->dfs(printedIds, outputFile);
+    string constructJSON() {
+        string res = "\t{\n";
+        res += "\t\t\"id\": " + to_string(finalID) + ",\n";
+        if (isFinalVar) {
+            res += "\t\t\"is_final\": true,\n";
         }
+        else {
+            res += "\t\t\"is_final\": false,\n";
+        }
+        res += "\t\t\"transitions\": {\n";
+        if (!transitions.empty()) {
+            int size = transitions.size();
+            for (auto &t : transitions) {
+                size--;
+                if (t.second != nullptr) {
+                    res += "\t\t\t\"";
+                    res += t.first;
+                    res += "\": ";
+                    res += to_string(t.second->finalID);
+                    if (size > 0) res += ',';
+                    res += "\n";
+                }
+            }
+        }
+        res += "\t\t}\n";
+        
+        res += "\t},\n";
+        return res;
     }
-    
 };

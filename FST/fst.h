@@ -92,6 +92,8 @@ public:
             tempStates[i-1]->setTransition(previousWord[i-1], findMinimized(tempStates[i]));
         }
         initialState = findMinimized(tempStates[0]);
+        
+        initialState->renameFSTFinalIDs();
         initialState->print(outputFileAddress);
         for (auto s : tempStates) {
             delete s;

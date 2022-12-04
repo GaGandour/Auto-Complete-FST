@@ -7,7 +7,7 @@ int constructFST() {
     }
 
     string input = "./dictionary.txt";
-    string output = "./fst.txt";
+    string output = "./fst.json";
 
     FST fst = FST(alphabet, 4, input, output);
     fst.createMinimalTransducerForGivenList();

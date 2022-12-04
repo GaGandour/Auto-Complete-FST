@@ -1,13 +1,5 @@
-#include<vector>
-#include<set>
-#include<fstream>
-
 #include"string_operators.h"
 #include"dictionary.h"
-
-using namespace std;
-
-const string ADDRESS = "../dictionary.txt"; 
 
 class FST {
 private:
@@ -59,7 +51,6 @@ public:
 
             if (currentWord != previousWord) {
                 tempStates[currentWord.length()]->setFinal(true);
-                // tempStates[currentWord.length()]->setOutput() // 46
                 tempStates[currentWord.length()]->setStateOutput({""});
             }
 

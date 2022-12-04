@@ -1,8 +1,4 @@
-#include<set>
-
 #include"fst.h"
-
-using namespace std;
 
 int constructFST() {
     vector<char> alphabet = vector<char>();

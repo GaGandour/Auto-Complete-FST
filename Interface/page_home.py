@@ -1,5 +1,5 @@
 import tkinter as tk
-from page import Page
+from Interface.page import Page
 
 
 class PageHome(Page):

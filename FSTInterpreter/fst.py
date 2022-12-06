@@ -8,7 +8,7 @@ class FST:
         self.construct_fst(fst_file)
 
     def construct_fst(self, fst_file):
-        file = open(fst_file)
+        file = open(fst_file, encoding='latin-1')
         fst_json = json.load(file)
         for state_json in fst_json:
             self.number_of_states += 1

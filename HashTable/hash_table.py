@@ -9,14 +9,14 @@ def txt2hashtable(path):
         line = dict_file.readline()
         if not line:
             break
-        dict_data.update({line.strip().lower():index})
-        dict_list.append(line.strip().lower())
+        dict_data.update({line.strip():index})
+        dict_list.append(line.strip())
         index += 1
     dict_file.close()
     return dict_data,dict_list
 
 def dict_constains_word(dictionary, dictio2list, word,n):
-        word_lower = word.lower()
+        word_lower = word
         if  word_lower in  dictionary:
             index = dictionary.get( word_lower)
             answer = []

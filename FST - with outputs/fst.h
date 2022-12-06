@@ -6,9 +6,12 @@ private:
     Dictionary minimalTransducerStatesDictionary;
     vector<State*> tempStates;
     State* initialState;
-    string previousWord, currentWord;
+    string previousWord, currentWord, currentOutput, wordSuffix, commonPrefix;
+    string tempString;
     string outputFileAddress;
+    set<string> tempSet;
     fstream input;
+    vector<char> alphabet;
     int numberOfStates;
 
     int maxWordSize;
@@ -16,6 +19,7 @@ private:
 
 public:
     FST(vector<char> fstAlphabet, int fstMaxWordSize, string &inputFileName, string &outputFileName) {
+        alphabet = fstAlphabet;
         maxWordSize = fstMaxWordSize;
         input = fstream(inputFileName);
         outputFileAddress = outputFileName;
@@ -26,12 +30,13 @@ public:
         numberOfStates = 0;
         minimalTransducerStatesDictionary = Dictionary();
         tempStates = vector<State*>(maxWordSize + 1);
+        tempSet = set<string>();
         for (i = 0; i <= maxWordSize; i++) {
             tempStates[i] = new State(numberOfStates);
         }
         previousWord = "";
         tempStates[0]->clearState();
-        while (input >> currentWord) {
+        while (input >> currentWord >> currentOutput) {
 
             prefixLengthPlus1 = longestCommonPrefix(currentWord, previousWord).length() + 1;
 
@@ -46,6 +51,39 @@ public:
 
             if (currentWord != previousWord) {
                 tempStates[currentWord.length()]->setFinal(true);
+                tempStates[currentWord.length()]->setStateOutput({""});
+            }
+
+            for (j = 1; j <= prefixLengthPlus1 - 1; j++) {
+                string aux = tempStates[j-1]->output(currentWord[j-1]);
+                commonPrefix = longestCommonPrefix(aux, currentOutput);
+                wordSuffix = divideStrings(commonPrefix, tempStates[j-1]->output(currentWord[j-1]));
+                tempStates[j-1]->setOutput(currentWord[j-1], commonPrefix);
+
+                for (char c : alphabet) {
+                    if (tempStates[j]->transition(c) != nullptr) {
+                        string aux = tempStates[j]->output(c);
+                        tempStates[j]->setOutput(c, wordSuffix + aux);
+                    }
+                }
+                
+                if (tempStates[j]->isFinal()) {
+                    tempSet.clear();
+                    for (string tempString : tempStates[j]->stateOutput()) {
+                        tempSet.insert(wordSuffix + tempString);
+                        tempStates[j]->setStateOutput(tempSet);
+                    }
+                }
+                currentOutput = divideStrings(commonPrefix, currentOutput);
+            }
+            int wordLength = currentWord.length();
+            if (currentWord == previousWord) {
+                set<string> auxSet = tempStates[wordLength]->stateOutput();
+                auxSet.insert(currentOutput);
+                tempStates[wordLength]->setStateOutput(auxSet);
+            }
+            else {
+                tempStates[prefixLengthPlus1 - 1]->setOutput(currentWord[prefixLengthPlus1-1], currentOutput);
             }
             previousWord = currentWord;    
         }

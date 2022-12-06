@@ -1,12 +1,10 @@
-from Levenshtein.fst_state import FSTState
+from FSTInterpreter.fst import FST
 
 class LevenshteinAutomaton:
-    def __init__(self, string, n):
+    def __init__(self, string: str, n: int, fst: FST):
         self.string = string
         self.max_edits = n
-
-    def start(self):
-        return range(len(self.string)+1)
+        self.fst = fst
 
     def step(self, state, c):
         new_state = [state[0]+1]

@@ -4,3 +4,4 @@ fst.json
 *.out
 *.pyc
 /__pycache__
+*.exe

@@ -34,4 +34,5 @@ class App(tk.Tk):
 
 if __name__ == "__main__":
     app = App()
+    app.title("Auto Complete Program")
     app.mainloop()

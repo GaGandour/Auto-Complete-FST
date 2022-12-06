@@ -15,7 +15,7 @@ private:
     int i, j, prefixLengthPlus1;
 
 public:
-    FST(vector<char> fstAlphabet, int fstMaxWordSize, string &inputFileName, string &outputFileName) {
+    FST(int fstMaxWordSize, string &inputFileName, string &outputFileName) {
         maxWordSize = fstMaxWordSize;
         input = fstream(inputFileName);
         outputFileAddress = outputFileName;

@@ -11,6 +11,6 @@ class FST:
         file = open(fst_file)
         fst_json = json.load(file)
         for state_json in fst_json:
-            number_of_states += 1
+            self.number_of_states += 1
             state = FSTState(state_json["is_final"], state_json["transitions"])
             self.fst_states.append(state)

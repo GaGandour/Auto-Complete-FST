@@ -2,6 +2,7 @@
 #include<fstream>
 #include<unordered_map>
 #include<set>
+#include<vector>
 
 using namespace std;
 
@@ -11,6 +12,21 @@ private:
     int finalID;
     bool isFinalVar;
     unordered_map<char, State *> transitions;
+
+    void writeToOutput(vector<string> &jsons, string &file) {
+        ofstream outputFile;
+        outputFile.open(file);
+        outputFile << "[\n";
+        int l = jsons.size();
+        for (int i = 0; i < l; i++) {
+            outputFile << jsons[i];
+            if (i < l-1)
+                outputFile << ",";
+            outputFile << "\n";
+        }
+        outputFile << "]\n";
+        outputFile.close();
+    }
 
 public:
     State(int &numberOfStates) {
@@ -73,20 +89,17 @@ public:
 
     void print(string file) {
         set<int> printedIds = set<int>();
-        ofstream outputFile;
-        outputFile.open(file);
-        outputFile << "[\n";
-        dfs(printedIds, outputFile);
-        outputFile << "]\n";
-        outputFile.close();
+        vector<string> jsons = vector<string>();
+        dfs(printedIds, jsons);
+        writeToOutput(jsons, file);
     }
 
-    void dfs(set<int> &printedIds, ostream &outputFile) {
+    void dfs(set<int> &printedIds, vector<string> &jsons) {
         if (printedIds.count(id) > 0) return;
         printedIds.insert(id);
-        outputFile << constructJSON();
+        jsons.push_back(constructJSON());
         for (auto &t : transitions) {
-            t.second->dfs(printedIds, outputFile);
+            t.second->dfs(printedIds, jsons);
         }
     }
 
@@ -116,7 +129,7 @@ public:
         }
         res += "\t\t}\n";
         
-        res += "\t},\n";
+        res += "\t}";
         return res;
     }
 };

@@ -1,5 +1,4 @@
 #include"fst_state.h"
-#include<vector>
 
 class Dictionary {
 private:

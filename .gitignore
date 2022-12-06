@@ -2,3 +2,5 @@ dictionary.txt
 fst.txt
 fst.json
 *.out
+*.pyc
+/__pycache__

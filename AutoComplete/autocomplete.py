@@ -29,6 +29,3 @@ def dfs_first_n(fst: FST, input: str, i: int, state_id: int, current_output: str
     
     return outputs
 
-fst = FST("fst.json")
-auto = first_n_correspondent_words(fst, "ap")
-print(auto)

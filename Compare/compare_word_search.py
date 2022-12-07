@@ -24,3 +24,5 @@ def generate_test_words():
 
 
 
+def calculate_levenshtein_time():
+    pass

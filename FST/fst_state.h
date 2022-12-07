@@ -1,6 +1,6 @@
 #include<iostream>
 #include<fstream>
-#include<unordered_map>
+#include<map>
 #include<set>
 #include<vector>
 
@@ -11,7 +11,7 @@ private:
     int id;
     int finalID;
     bool isFinalVar;
-    unordered_map<char, State *> transitions;
+    map<char, State *> transitions;
 
     void writeToOutput(vector<string> &jsons, string &file) {
         ofstream outputFile;

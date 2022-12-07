@@ -1,7 +1,7 @@
 import tkinter as tk
 
-from page_home import PageHome
-from page_fst import PageFST
+from Interface.page_home import PageHome
+from Interface.page_fst import PageFST
 # from page_hash_table import PageHashTable
 
 
@@ -32,7 +32,7 @@ class App(tk.Tk):
         self.frames[page_name].tkraise()
 
 
-if __name__ == "__main__":
-    app = App()
-    app.title("Auto Complete Program")
-    app.mainloop()
+# if __name__ == "__main__":
+#     app = App()
+#     app.title("Auto Complete Program")
+#     app.mainloop()

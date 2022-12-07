@@ -1,3 +1,4 @@
+
 from FSTInterpreter.fst import FST
 
 class LevenshteinAutomaton:
@@ -5,7 +6,10 @@ class LevenshteinAutomaton:
         self.string = string
         self.max_edits = n
         self.fst = fst
-
+            
+    def start(self):
+        return range(len(self.string)+1)
+    
     def step(self, state, c):
         new_state = [state[0]+1]
         for i in range(len(state)-1):

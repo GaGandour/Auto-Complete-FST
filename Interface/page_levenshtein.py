@@ -1,30 +1,20 @@
 import tkinter as tk
 from Interface.page import Page
+from Levenshtein.search_1distance import search1DistanceWord
+from FSTInterpreter.fst import FST
 
 
+class PageLevenshtein(Page):
+    page_path = "Menu > Levenshtein 1 Distance"
 
-
-        # main content widgets
-        
-        # action buttons widgets
-        
-import tkinter as tk
-from Interface.page import Page
-from HashTable.hash_table import dict_constains_word
-
-
-class PageHashTable(Page):
-    page_path = "Menu > Autocomplete Hash Table"
-
-    def __init__(self, parent, controller, dict, list):
-        super().__init__(parent, controller, PageHashTable.page_path)
+    def __init__(self, parent, controller, fst):
+        super().__init__(parent, controller, PageLevenshtein.page_path)
         self.controller = controller
-        self.dict = dict
-        self.list = list
-        self.data = dict_constains_word(dict, list, "", 10)
+        self.fst = fst
+        self.data = search1DistanceWord("",self.fst, 10)
         
         # input frame and content
-        input_frame = tk.LabelFrame(self, width=340, height=100, text="Entrada Autocomplete Hash Table")
+        input_frame = tk.LabelFrame(self, width=340, height=100, text="Entrada Levenshtein 1 Distance")
         input_frame.pack(pady=(10, 0))
         input_frame.pack_propagate(0)
         
@@ -36,7 +26,7 @@ class PageHashTable(Page):
         self.input_entry.bind("<KeyRelease>", self.check)
 
         # output frame and content
-        output_frame = tk.LabelFrame(self, width=340, height=270, text="Saída Autocomplete Hash Table")
+        output_frame = tk.LabelFrame(self, width=340, height=270, text="Saída Levenshtein 1 Distance")
         output_frame.pack(pady=(10, 0))
         output_frame.pack_propagate(0)
 
@@ -52,7 +42,7 @@ class PageHashTable(Page):
 
     def check(self, e):
         typed = self.input_entry.get()
-        self.data = dict_constains_word(self.dict, self.list, typed, 10)
+        self.data = search1DistanceWord(typed, self.fst, 10)
         self.update_content()
 
 

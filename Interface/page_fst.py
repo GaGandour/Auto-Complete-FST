@@ -1,16 +1,15 @@
 import tkinter as tk
 from Interface.page import Page
 from AutoComplete.autocomplete import first_n_correspondent_words
-from FSTInterpreter.fst import FST
 
 
 class PageFST(Page):
     page_path = "Menu > Autocomplete FST"
 
-    def __init__(self, parent, controller):
+    def __init__(self, parent, controller, fst):
         super().__init__(parent, controller, PageFST.page_path)
         self.controller = controller
-        self.fst = FST("fst.json")
+        self.fst = fst
         self.data = first_n_correspondent_words(self.fst, "", n = 10)
         
         # input frame and content

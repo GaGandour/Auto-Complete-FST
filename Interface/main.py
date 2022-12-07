@@ -2,7 +2,11 @@ import tkinter as tk
 
 from Interface.page_home import PageHome
 from Interface.page_fst import PageFST
-# from page_hash_table import PageHashTable
+from Interface.page_hash_table import PageHashTable
+from Interface.page_levenshtein import PageLevenshtein
+
+from FSTInterpreter.fst import FST
+from HashTable.hash_table import txt2hashtable
 
 
 class App(tk.Tk):
@@ -15,12 +19,20 @@ class App(tk.Tk):
         self.container.grid_rowconfigure(0, weight=1)
         self.container.grid_columnconfigure(0, weight=1)
 
+        fst = FST("fst.json")
+        (hash_dict, hash_list) = txt2hashtable("dictionary.txt")
+
         self.frames = {}
 
-        # for F in (PageHome, PageFST, PageHashTable):
-        for F in (PageHome, PageFST):
+        for F in (PageHome, PageFST, PageHashTable, PageLevenshtein):
             page_name = F.__name__
-            frame = F(parent=self.container, controller=self)
+            
+            if page_name == PageHashTable.__name__:
+                frame = F(parent=self.container, controller=self, dict=hash_dict, list=hash_list)    
+            elif page_name == PageHome.__name__:
+                frame = F(parent=self.container, controller=self)
+            else: frame = F(parent=self.container, controller=self, fst=fst)
+
             self.frames[page_name] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 

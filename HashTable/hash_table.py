@@ -16,23 +16,22 @@ def txt2hashtable(path):
     return dict_data,dict_list
 
 def dict_constains_word(dictionary, dictio2list, word,n):
-        word_lower = word
-        if  word_lower in  dictionary:
-            index = dictionary.get( word_lower)
-            answer = []
-            length = len(word_lower)
-            answer.append( word_lower)
-            
-        # comparing the suffixes of the next words in the file with the given word.
-            for i in range(n-1): 
-                index = index + 1  
-                if  word_lower[:length] == dictio2list[index][:length] and index <= len(dictio2list)-1:
-                    answer.append( dictio2list[index])
-                else:
-                    break
-            return answer
-        else:
-            return []
+    word_lower = word
+    if  word_lower in  dictionary:
+        index = dictionary.get( word_lower)
+        answer = []
+        length = len(word_lower)
+        answer.append( word_lower)
+        
+    # comparing the suffixes of the next words in the file with the given word.
+        for i in range(n-1): 
+            index = index + 1  
+            if  word_lower[:length] == dictio2list[index][:length] and index <= len(dictio2list)-1:
+                answer.append( dictio2list[index])
+            else:
+                break
+        return answer
+    return []
 
 
 ## How to use the functions

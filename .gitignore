@@ -6,3 +6,4 @@ fst.json
 */__pycache__
 *.exe
 venv
+american-english*

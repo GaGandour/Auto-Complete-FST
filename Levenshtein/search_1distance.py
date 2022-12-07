@@ -27,23 +27,12 @@ def dfs_first_n(fst: FST, input: str, i: int, fst_state_id: int,levenshtein: Lev
 
 
 def search1DistanceWord(word,fst,N): 
-<<<<<<< HEAD
     myFST = FST(fst)
     search1Automata = LevenshteinAutomaton(word,2,myFST)
     return first_n_1distance_words(myFST,search1Automata,word,n=N)
-=======
-    # myFST = FST(fst)
-    search1Automata = LevenshteinAutomaton(word,1,fst)
-    return first_n_1distance_words(fst,search1Automata,word,n=N)
->>>>>>> 14880be49a37b6dbac1c3623eea97fa8a07b4233
 
  
  
 
-<<<<<<< HEAD
-respostas = search1DistanceWord('aug',"fst.json",10)
-print(respostas)
-=======
-# respostas = search1DistanceWord('apa',"fst.json",2)
+# respostas = search1DistanceWord('aug',"fst.json",10)
 # print(respostas)
->>>>>>> 14880be49a37b6dbac1c3623eea97fa8a07b4233

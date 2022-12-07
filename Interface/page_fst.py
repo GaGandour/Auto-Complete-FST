@@ -1,28 +1,7 @@
 import tkinter as tk
-from page import Page
-
-dictionary = ["apr", 
-              "aug", 
-              "dec",
-              "feb", 
-              "jan", 
-              "jul",
-              "jun"]
-
-
-def autocomplete_carteado(input : str):
-    data = []
-    len_input = len(input)
-
-    if input == '':
-        data = dictionary
-    else:
-        data = []
-        for item in dictionary:
-            if input.lower() in item.lower()[0:len_input]:
-                data.append(item)
-
-    return data
+from Interface.page import Page
+from AutoComplete.autocomplete import first_n_correspondent_words
+from FSTInterpreter.fst import FST
 
 
 class PageFST(Page):
@@ -31,8 +10,9 @@ class PageFST(Page):
     def __init__(self, parent, controller):
         super().__init__(parent, controller, PageFST.page_path)
         self.controller = controller
-        self.data = dictionary
-
+        self.fst = FST("fst.json")
+        self.data = first_n_correspondent_words(self.fst, "", n = 10)
+        
         # input frame and content
         input_frame = tk.LabelFrame(self, width=340, height=100, text="Entrada Autocomplete FST")
         input_frame.pack(pady=(10, 0))
@@ -62,7 +42,7 @@ class PageFST(Page):
 
     def check(self, e):
         typed = self.input_entry.get()
-        self.data = autocomplete_carteado(typed)
+        self.data = first_n_correspondent_words(self.fst, typed, n = 10)
         self.update_content()
 
 

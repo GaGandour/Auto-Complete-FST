@@ -3,5 +3,7 @@ fst.txt
 fst.json
 *.out
 *.pyc
-/__pycache__
+*/__pycache__
 *.exe
+venv
+american-english*

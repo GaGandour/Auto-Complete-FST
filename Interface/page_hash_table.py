@@ -1,14 +1,5 @@
 import tkinter as tk
-from Interface.page import Page
 
-
-
-
-        # main content widgets
-        
-        # action buttons widgets
-        
-import tkinter as tk
 from Interface.page import Page
 from HashTable.hash_table import dict_constains_word
 

@@ -1,5 +1,6 @@
 #include"string_operators.h"
 #include"dictionary.h"
+#include<chrono>
 
 class FST {
 private:
@@ -7,7 +8,7 @@ private:
     vector<State*> tempStates;
     State* initialState;
     string previousWord, currentWord;
-    string outputFileAddress;
+    string outputFileAddress, reportOutputFileAddress;
     fstream input;
     int numberOfStates;
 
@@ -15,14 +16,16 @@ private:
     int i, j, prefixLengthPlus1;
 
 public:
-    FST(int fstMaxWordSize, string &inputFileName, string &outputFileName) {
+    FST(int fstMaxWordSize, string &inputFileName, string &outputFileName, string &reportOutputFileName) {
         maxWordSize = fstMaxWordSize;
         input = fstream(inputFileName);
         outputFileAddress = outputFileName;
+        reportOutputFileAddress = reportOutputFileName;
     };
 
 
     void createMinimalTransducerForGivenList () {
+        auto startTime = chrono::high_resolution_clock::now();
         numberOfStates = 0;
         minimalTransducerStatesDictionary = Dictionary();
         tempStates = vector<State*>(maxWordSize + 1);
@@ -57,11 +60,20 @@ public:
         
         initialState->renameFSTFinalIDs();
         initialState->print(outputFileAddress);
+        int finalNumberOfStates = initialState->getFinalNumberOfStates();
         for (auto s : tempStates) {
             delete s;
         }
         tempStates.clear();
         minimalTransducerStatesDictionary.clear();
+        auto finalTime = chrono::high_resolution_clock::now();
+        ofstream reportFile;
+        reportFile.open(reportOutputFileAddress);
+        int64_t duration = chrono::duration_cast<std::chrono::milliseconds>(finalTime-startTime).count();
+        reportFile << "Tempo de criacao do FST: " << duration << " milisegundos\n";
+        reportFile << "Quantidade de nos criados no processo: " << numberOfStates << "\n";
+        reportFile << "Quantidade final de nos do FST: " << finalNumberOfStates << "\n";
+        reportFile.close();
     }
 
     State* findMinimized(State* s) {

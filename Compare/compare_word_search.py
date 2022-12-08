@@ -52,5 +52,5 @@ def generate_test_words_splitted(test_words):
         
     return splitted_words
     
-def calculate_levenshtein_time(fst, word):
+
 

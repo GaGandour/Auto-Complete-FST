@@ -1,4 +1,5 @@
 import time
+import random
 from AutoComplete.autocomplete import first_n_correspondent_words
 from FSTInterpreter.fst import FST
 from HashTable.hash_table import dict_constains_word
@@ -23,31 +24,35 @@ def calculate_levenshtein_time(fst, word):
     return time.time() - start_time
 
 
-def generate_test_words():
-    return [
-        "Monday",
-        "Ariel",
-        "Emanuel",
-        "Uri",
-        "stra",
-        "mik"
-    ]
-
-
-def sum_times(times):
-    t = 0
-    for time in times:
-        t += time
-    return t
-
-def compare_time():
-    fst = FST("fst.json")
-    words = generate_test_words()
-    fst_times = [calculate_fst_search_time(fst, word) for word in words]
-    # hash_times = [calculate_fst_search_time(fst, word) for word in words]
-    # levensh_times = [calculate_fst_search_time(fst, word) for word in words]
-
-    fst_time = sum_times(fst_times)
+def generate_test_words(dict_path, number_of_words):
+    file = open(dict_path, encoding='latin-1')
+    lines_indexes = []
     
-    print("FST complete:\t" + "{:.3f}".format(fst_time))
+    for i in range(number_of_words):
+        lines_indexes.append(random.randomint(0,100000))
+    
+    lines_indexes.sort()
+    lines_data = []
+    
+    for i, line in enumerate(file):
+        if i in lines_indexes:
+            lines_data.append(line.strip())
+        elif i > lines_indexes[-1]:
+            break
+    
+    return lines_data
+    
+    
+def generate_test_words_splitted(test_words):
+    splitted_words = []
+    
+    for word in test_words: 
+        split_index = random.randint(1,len(word))
+        splitted_words.append(word[:split_index])
+        
+    return splitted_words
+    
+
+
+
 

@@ -29,7 +29,7 @@ def generate_test_words(dict_path, number_of_words):
     lines_indexes = []
     
     for i in range(number_of_words):
-        lines_indexes.append(random.randomint(0,100000))
+        lines_indexes.append(random.randint(0,13))
     
     lines_indexes.sort()
     lines_data = []
@@ -52,7 +52,3 @@ def generate_test_words_splitted(test_words):
         
     return splitted_words
     
-
-
-
-

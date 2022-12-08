@@ -24,8 +24,8 @@ def calculate_levenshtein_time(fst, word):
     return time.time() - start_time
 
 
-def generate_test_words(fst_file, number_of_words):
-    file = open(fst_file, encoding='latin-1')
+def generate_test_words(dict_path, number_of_words):
+    file = open(dict_path, encoding='latin-1')
     lines_indexes = []
     
     for i in range(number_of_words):
@@ -52,5 +52,7 @@ def generate_test_words_splitted(test_words):
         
     return splitted_words
     
+
+
 
 

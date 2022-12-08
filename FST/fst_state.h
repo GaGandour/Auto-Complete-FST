@@ -9,6 +9,7 @@ using namespace std;
 class State {
 private:
     int id;
+    int finalNumberOfStates;
     int finalID;
     bool isFinalVar;
     map<char, State *> transitions;
@@ -35,8 +36,13 @@ public:
         clearState();
     };
 
+    int getFinalNumberOfStates() {
+        return finalNumberOfStates;
+    }
+
     void clearState() {
         setFinal(false);
+        finalNumberOfStates = 0;
         transitions.clear();
     }
 
@@ -76,6 +82,7 @@ public:
         int newId = 0;
         set<int> renamedIds = set<int>();
         renameDFS(renamedIds, newId);
+        finalNumberOfStates = newId;
     }
 
     void renameDFS (set<int> &renamedIds, int &newId) {

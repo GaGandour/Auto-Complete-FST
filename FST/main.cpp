@@ -4,8 +4,9 @@ int constructFST() {
 
     string input = "./dictionary.txt";
     string output = "./fst.json";
+    string reportPath = "./report.txt";
 
-    FST fst = FST(8, input, output);
+    FST fst = FST(30, input, output, reportPath);
     fst.createMinimalTransducerForGivenList();
 
     return 0;
@@ -13,6 +14,5 @@ int constructFST() {
 
 int main() {
     constructFST();
-
     return 0;
 }

@@ -15,7 +15,7 @@ def txt2hashtable(path):
     dict_file.close()
     return dict_data,dict_list
 
-def dict_constains_word(dictionary, dictio2list, word,n):
+def dict_constains_word(dictionary, dictio2list, word, n = 10):
     word_lower = word
     if  word_lower in  dictionary:
         index = dictionary.get( word_lower)

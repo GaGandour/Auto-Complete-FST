@@ -1,6 +1,8 @@
 import time
 import random
 from AutoComplete.autocomplete import first_n_correspondent_words
+from FSTInterpreter.fst import FST
+from HashTable.hash_table import dict_constains_word
 from Levenshtein.search_1distance import search1DistanceWord
 
 
@@ -10,9 +12,16 @@ def calculate_fst_search_time(fst, word):
     return time.time() - start_time
 
 
+def calculate_hash_table_(dict, list, word):
+    start_time = time.time()
+    dict_constains_word(dict, list, word)
+    return time.time() - start_time
 
 
-
+def calculate_levenshtein_time(fst, word):
+    start_time = time.time()
+    search1DistanceWord(word,fst)
+    return time.time() - start_time
 
 
 def generate_test_words(fst_file, number_of_words):
@@ -45,6 +54,3 @@ def generate_test_words_splitted(test_words):
     
 def calculate_levenshtein_time(fst, word):
 
-    start_time = time.time()
-    search1DistanceWord(word,fst)
-    return time.time() - start_time     

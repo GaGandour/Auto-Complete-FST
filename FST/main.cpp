@@ -6,7 +6,7 @@ int constructFST() {
     string output = "./fst.json";
     string reportPath = "./report.txt";
 
-    FST fst = FST(30, input, output, reportPath);
+    FST fst = FST(23, input, output, reportPath);
     fst.createMinimalTransducerForGivenList();
 
     return 0;

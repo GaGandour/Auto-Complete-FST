@@ -47,9 +47,7 @@ public:
                 tempStates[i-1]->setTransition(currentWord[i-1], tempStates[i]);
             }
 
-            if (currentWord != previousWord) { // coloca a última letra como final
-                tempStates[currentWord.length()]->setFinal(true);
-            }
+            tempStates[currentWord.length()]->setFinal(true);
             previousWord = currentWord;    
         }
 

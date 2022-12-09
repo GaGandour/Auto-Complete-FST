@@ -139,4 +139,16 @@ public:
         res += "\t}";
         return res;
     }
+
+    string generateKey() {
+        string key = "";
+        key += to_string(isFinalVar ? 1 : 0);
+        key += "_";
+        for (auto t : transitions) {
+            key += t.first;
+            key += to_string(t.second->id);
+            key += "_";
+        }
+        return key;
+    }
 };

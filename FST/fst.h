@@ -38,16 +38,16 @@ public:
 
             prefixLengthPlus1 = longestCommonPrefix(currentWord, previousWord).length() + 1;
 
-            for (i = previousWord.length(); i >= prefixLengthPlus1; i--) {
+            for (i = previousWord.length(); i >= prefixLengthPlus1; i--) { // constroi sufixos da palavra anterior no FST 
                 tempStates[i-1]->setTransition(previousWord[i-1], findMinimized(tempStates[i]));
             }
 
-            for (i = prefixLengthPlus1; i <= currentWord.length(); i++) {
+            for (i = prefixLengthPlus1; i <= currentWord.length(); i++) { //constroi a nova palavra no TempStates
                 tempStates[i]->clearState();
                 tempStates[i-1]->setTransition(currentWord[i-1], tempStates[i]);
             }
 
-            if (currentWord != previousWord) {
+            if (currentWord != previousWord) { // coloca a última letra como final
                 tempStates[currentWord.length()]->setFinal(true);
             }
             previousWord = currentWord;    
